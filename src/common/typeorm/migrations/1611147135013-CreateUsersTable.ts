@@ -11,10 +11,10 @@ export class CreateUsersTable1611147135013 implements MigrationInterface {
     columns: [
       {
         name: 'id',
-        type: 'int',
+        type: 'uuid',
         isPrimary: true,
         isGenerated: true,
-        generationStrategy: 'increment',
+        generationStrategy: 'uuid',
       },
       {
         name: 'name',
@@ -29,12 +29,12 @@ export class CreateUsersTable1611147135013 implements MigrationInterface {
       },
       {
         name: 'password',
-        type: 'varchar(45)',
+        type: 'varchar(100)',
         isNullable: false,
       },
       {
-        name: 'role_id',
-        type: 'int',
+        name: 'role',
+        type: 'varchar(45)',
         isNullable: false,
       },
       {
@@ -46,8 +46,8 @@ export class CreateUsersTable1611147135013 implements MigrationInterface {
   });
 
   private foreignKey = new TableForeignKey({
-    columnNames: ['role_id'],
-    referencedColumnNames: ['id'],
+    columnNames: ['role'],
+    referencedColumnNames: ['role'],
     onDelete: 'CASCADE',
     referencedTableName: 'roles',
   });
@@ -56,13 +56,17 @@ export class CreateUsersTable1611147135013 implements MigrationInterface {
     await queryRunner.createTable(this.table);
     await queryRunner.createForeignKey(this.table, this.foreignKey);
     await queryRunner.query(`
-      INSERT INTO "users" (name, email, password, role_id)
-      VALUES ('Administrador', 'adm@brainny.cc', 'adm123', '1')
+      INSERT INTO "users" (name, email, password, role)
+      VALUES (
+        'Administrador',
+        'adm@brainny.cc',
+        '$2b$10$iFTN41FnmxY6ONYlmU4W8eb60UqAIfJVQ7AlwM5ZfACR3rK/IVM.y',
+        'administrator'
+      )
     `);
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropForeignKey(this.table, this.foreignKey);
     await queryRunner.dropTable(this.table);
   }
 }

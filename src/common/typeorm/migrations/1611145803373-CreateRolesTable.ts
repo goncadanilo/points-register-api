@@ -6,16 +6,14 @@ export class CreateRolesTable1611145803373 implements MigrationInterface {
     columns: [
       {
         name: 'id',
-        type: 'int',
-        isPrimary: true,
+        type: 'uuid',
         isGenerated: true,
-        generationStrategy: 'increment',
+        generationStrategy: 'uuid',
       },
       {
         name: 'role',
         type: 'varchar(45)',
-        isNullable: false,
-        isUnique: true,
+        isPrimary: true,
       },
       {
         name: 'created_at',

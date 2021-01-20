@@ -1,17 +1,17 @@
 import { Field, HideField, ID } from '@nestjs/graphql';
-import { hashPasswordTransform } from 'common/transformers/crypto-transformer';
 import {
   Column,
   CreateDateColumn,
   Entity,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { hashPasswordTransform } from '../../common/transformers/crypto-transformer';
 
 @Entity({ name: 'users' })
 export class User {
-  @PrimaryGeneratedColumn('increment')
+  @PrimaryGeneratedColumn('uuid')
   @Field(() => ID)
-  id: number;
+  id: string;
 
   @Column()
   name: string;
@@ -23,8 +23,8 @@ export class User {
   @HideField()
   password: string;
 
-  @Column({ name: 'role_id' })
-  roleId: number;
+  @Column()
+  role: string;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
