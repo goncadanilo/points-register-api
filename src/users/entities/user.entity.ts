@@ -1,3 +1,4 @@
+import { Field, HideField, ID } from '@nestjs/graphql';
 import {
   Column,
   CreateDateColumn,
@@ -7,7 +8,8 @@ import {
 
 @Entity({ name: 'users' })
 export class User {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('increment')
+  @Field(() => ID)
   id: number;
 
   @Column()
@@ -17,6 +19,7 @@ export class User {
   email: string;
 
   @Column()
+  @HideField()
   password: string;
 
   @Column({ name: 'role_id' })
