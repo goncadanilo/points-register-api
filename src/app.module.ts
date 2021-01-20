@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { resolve } from 'path';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { resolve } from 'path';
       entities: [resolve(__dirname, '**', 'entities', '*.entity.{ts,js}')],
       synchronize: process.env.POSTGRES_SYNC === 'true',
     }),
+    UsersModule,
   ],
 })
 export class AppModule {}
