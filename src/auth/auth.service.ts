@@ -1,6 +1,6 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { compareSync } from 'bcrypt';
-import { UsersService } from '../users/users.service';
+import { UsersService } from 'src/users/users.service';
 import { AuthInput } from './dtos/auth.input';
 
 @Injectable()
