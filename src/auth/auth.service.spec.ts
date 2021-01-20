@@ -1,3 +1,4 @@
+import { UnauthorizedException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { hashSync } from 'bcrypt';
 import { UsersService } from 'users/users.service';
@@ -44,6 +45,16 @@ describe('AuthService', () => {
       const result = await service.validateUser(mockData);
 
       expect(result).toHaveProperty('token');
+      expect(usersService.findUserByEmail).toBeCalledWith(mockData.email);
+      expect(usersService.findUserByEmail).toBeCalledTimes(1);
+    });
+
+    it('should throw if user password is invalid', async () => {
+      usersService.findUserByEmail.mockReturnValue(mockData);
+
+      expect(service.validateUser(mockData)).rejects.toThrow(
+        UnauthorizedException,
+      );
       expect(usersService.findUserByEmail).toBeCalledWith(mockData.email);
       expect(usersService.findUserByEmail).toBeCalledTimes(1);
     });
