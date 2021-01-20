@@ -1,4 +1,5 @@
 import { Field, HideField, ID } from '@nestjs/graphql';
+import { hashPasswordTransform } from 'common/transformers/crypto-transformer';
 import {
   Column,
   CreateDateColumn,
@@ -18,7 +19,7 @@ export class User {
   @Column({ unique: true })
   email: string;
 
-  @Column()
+  @Column({ transformer: hashPasswordTransform })
   @HideField()
   password: string;
 
