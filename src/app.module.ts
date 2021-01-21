@@ -21,7 +21,7 @@ import { UsersModule } from './users/users.module';
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_NAME,
       entities: [resolve(__dirname, '**', 'entities', '*.entity.{ts,js}')],
-      synchronize: process.env.POSTGRES_SYNC === 'true',
+      synchronize: false,
     }),
     UsersModule,
     AuthModule,
