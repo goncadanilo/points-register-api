@@ -3,9 +3,9 @@ import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join, resolve } from 'path';
-import { AuthModule } from './auth/auth.module';
-import { UsersModule } from './users/users.module';
-import { RegistersModule } from './registers/registers.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { RegistersModule } from './modules/registers/registers.module';
+import { UsersModule } from './modules/users/users.module';
 
 @Module({
   imports: [

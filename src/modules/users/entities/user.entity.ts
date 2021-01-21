@@ -5,7 +5,7 @@ import {
   Entity,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { hashPasswordTransform } from '../../common/transformers/crypto-transformer';
+import { hashPasswordTransform } from '../../../common/transformers/crypto-transformer';
 
 @ObjectType()
 @Entity({ name: 'users' })
