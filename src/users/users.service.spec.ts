@@ -15,7 +15,7 @@ describe('UsersService', () => {
     name: 'any',
     email: 'any@brainny.cc',
     password: 'any',
-    role_id: '2',
+    role: 'employee',
   };
 
   beforeAll(async () => {
