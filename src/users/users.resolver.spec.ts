@@ -40,7 +40,7 @@ describe('UsersResolver', () => {
       serviceMock.createUser.mockReturnValue({ ...mockData, id: 'any_id' });
 
       const { name, email, password } = mockData;
-      const mockInput = { name, email, password, admin: false };
+      const mockInput = { name, email, password, isAdmin: false };
       const user = await resolver.createUser(mockInput);
 
       expect(user).toHaveProperty('id');

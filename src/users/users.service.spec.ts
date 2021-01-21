@@ -50,7 +50,7 @@ describe('UsersService', () => {
       repositoryMock.save.mockReturnValue({ ...mockData, id: 'any_id' });
 
       const { name, email, password } = mockData;
-      const mockInput = { name, email, password, admin: false };
+      const mockInput = { name, email, password, isAdmin: false };
       const user = await service.createUser(mockInput);
 
       expect(user).toHaveProperty('id');
@@ -67,7 +67,7 @@ describe('UsersService', () => {
       repositoryMock.save.mockReturnValue({ ...mockData, id: 'any_id' });
 
       const { name, email, password } = mockData;
-      const mockInput = { name, email, password, admin: true };
+      const mockInput = { name, email, password, isAdmin: true };
       const user = await service.createUser(mockInput);
 
       expect(user).toHaveProperty('id');

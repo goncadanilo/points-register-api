@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { Role } from '../common/enum/role.enum';
 import { CreateUserInput } from './dtos/create-user.input';
 import { User } from './entities/user.entity';
-import { Role } from './enum/role.enum';
 
 @Injectable()
 export class UsersService {
@@ -11,7 +11,7 @@ export class UsersService {
 
   async createUser(data: CreateUserInput): Promise<User> {
     const user = this.repository.create(data);
-    user.role = data.admin ? Role.ADMINISTRATOR : Role.EMPLOYEE;
+    user.role = data.isAdmin ? Role.ADMINISTRATOR : Role.EMPLOYEE;
 
     return this.repository.save(user);
   }
