@@ -3,9 +3,11 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { hashPasswordTransform } from '../../../common/transformers/crypto-transformer';
+import { Register } from '../../../modules/registers/entities/register.entity';
 
 @ObjectType()
 @Entity({ name: 'users' })
@@ -29,4 +31,7 @@ export class User {
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
+
+  @OneToMany(() => Register, (register) => register.userConnection)
+  registerConnection: Promise<Register[]>;
 }
