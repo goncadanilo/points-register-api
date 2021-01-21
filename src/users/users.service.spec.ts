@@ -8,11 +8,12 @@ describe('UsersService', () => {
   let service: UsersService;
 
   const repositoryMock = {
+    create: jest.fn(),
+    save: jest.fn(),
     findOne: jest.fn(),
   };
 
   const mockData = {
-    id: '1',
     name: 'any',
     email: 'any@brainny.cc',
     password: 'any',
@@ -34,6 +35,8 @@ describe('UsersService', () => {
   });
 
   beforeEach(() => {
+    repositoryMock.create.mockReset();
+    repositoryMock.save.mockReset();
     repositoryMock.findOne.mockReset();
   });
 
@@ -41,11 +44,27 @@ describe('UsersService', () => {
     expect(service).toBeDefined();
   });
 
+  describe('when create a user', () => {
+    it('should be create a user', async () => {
+      repositoryMock.create.mockReturnValue(mockData);
+      repositoryMock.save.mockReturnValue(mockData);
+
+      const savedUser = await service.createUser(mockData);
+
+      expect(savedUser).toHaveProperty('id');
+      expect(savedUser).toMatchObject(mockData);
+      expect(repositoryMock.create).toBeCalledWith(mockData);
+      expect(repositoryMock.create).toBeCalledTimes(1);
+      expect(repositoryMock.save).toBeCalledWith(mockData);
+      expect(repositoryMock.save).toBeCalledTimes(1);
+    });
+  });
+
   describe('when search user by id or email', () => {
     it('should find a user by id', async () => {
       repositoryMock.findOne.mockReturnValue(mockData);
 
-      const { id } = mockData;
+      const id = 'any_id';
       const user = await service.findUserByIdOrEmail(id);
 
       expect(user).toMatchObject(mockData);
