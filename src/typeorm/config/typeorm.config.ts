@@ -9,11 +9,11 @@ const options: TypeOrmModuleOptions = {
   password: process.env.POSTGRES_PASSWORD,
   database: process.env.POSTGRES_NAME,
   entities: [
-    resolve(__dirname, '..', '..', '..', '**', 'entities', '*.entity.{ts,js}'),
+    resolve(__dirname, '..', '..', '**', 'entities', '*.entity.{ts,js}'),
   ],
   migrations: [resolve(__dirname, '..', 'migrations', '*.{ts,js}')],
   cli: {
-    migrationsDir: join('src', 'common', 'typeorm', 'migrations'),
+    migrationsDir: join('src', 'typeorm', 'migrations'),
   },
 };
 

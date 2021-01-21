@@ -19,7 +19,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "typeorm": "ts-node ./node_modules/typeorm/cli.js --config src/common/typeorm/config/typeorm.config.ts"
+    "typeorm": "ts-node ./node_modules/typeorm/cli.js --config src/typeorm/config/typeorm.config.ts"
   },
   "dependencies": {
     "@nestjs/common": "^7.5.1",
@@ -32,6 +32,8 @@
     "@nestjs/typeorm": "^7.1.5",
     "apollo-server-express": "^2.19.2",
     "bcrypt": "^5.0.0",
+    "class-transformer": "^0.3.2",
+    "class-validator": "^0.13.1",
     "graphql": "^15.4.0",
     "graphql-tools": "^7.0.2",
     "passport": "^0.4.1",
@@ -80,6 +82,17 @@
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },
+    "collectCoverageFrom": [
+      "src/**/*.ts",
+      "!src/**/**.guard.ts",
+      "!src/**/**.strategy.ts",
+      "!src/typeorm/**/*.ts",
+      "!src/common/**/**.ts",
+      "!src/main.ts",
+      "!src/app.module.ts",
+      "!src/**/types/**.ts",
+      "!src/**/*.module.ts"
+    ],
     "coverageDirectory": "./coverage",
     "testEnvironment": "node"
   }

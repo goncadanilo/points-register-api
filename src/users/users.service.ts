@@ -1,11 +1,20 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { Role } from '../common/enum/role.enum';
+import { CreateUserInput } from './dtos/create-user.input';
 import { User } from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
   constructor(@InjectRepository(User) private repository: Repository<User>) {}
+
+  async createUser(data: CreateUserInput): Promise<User> {
+    const user = this.repository.create(data);
+    user.role = data.isAdmin ? Role.ADMINISTRATOR : Role.EMPLOYEE;
+
+    return this.repository.save(user);
+  }
 
   async findUserByIdOrEmail(data: string): Promise<User> {
     let user: User;
@@ -19,7 +28,6 @@ export class UsersService {
     if (!user) {
       throw new NotFoundException('User not found');
     }
-
     return user;
   }
 }

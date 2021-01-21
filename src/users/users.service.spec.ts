@@ -8,15 +8,16 @@ describe('UsersService', () => {
   let service: UsersService;
 
   const repositoryMock = {
+    create: jest.fn(),
+    save: jest.fn(),
     findOne: jest.fn(),
   };
 
   const mockData = {
-    id: '1',
     name: 'any',
     email: 'any@brainny.cc',
     password: 'any',
-    role: 'employee',
+    role: 'EMPLOYEE',
   };
 
   beforeAll(async () => {
@@ -34,6 +35,8 @@ describe('UsersService', () => {
   });
 
   beforeEach(() => {
+    repositoryMock.create.mockReset();
+    repositoryMock.save.mockReset();
     repositoryMock.findOne.mockReset();
   });
 
@@ -41,11 +44,46 @@ describe('UsersService', () => {
     expect(service).toBeDefined();
   });
 
+  describe('when create a user', () => {
+    it('should be create a employee', async () => {
+      repositoryMock.create.mockReturnValue(mockData);
+      repositoryMock.save.mockReturnValue({ ...mockData, id: 'any_id' });
+
+      const { name, email, password } = mockData;
+      const mockInput = { name, email, password, isAdmin: false };
+      const user = await service.createUser(mockInput);
+
+      expect(user).toHaveProperty('id');
+      expect(user).toMatchObject(mockData);
+      expect(repositoryMock.create).toBeCalledWith(mockInput);
+      expect(repositoryMock.create).toBeCalledTimes(1);
+      expect(repositoryMock.save).toBeCalledWith(mockData);
+      expect(repositoryMock.save).toBeCalledTimes(1);
+    });
+
+    it('should be create a administrator', async () => {
+      mockData.role = 'ADMINISTRATOR';
+      repositoryMock.create.mockReturnValue(mockData);
+      repositoryMock.save.mockReturnValue({ ...mockData, id: 'any_id' });
+
+      const { name, email, password } = mockData;
+      const mockInput = { name, email, password, isAdmin: true };
+      const user = await service.createUser(mockInput);
+
+      expect(user).toHaveProperty('id');
+      expect(user).toMatchObject(mockData);
+      expect(repositoryMock.create).toBeCalledWith(mockInput);
+      expect(repositoryMock.create).toBeCalledTimes(1);
+      expect(repositoryMock.save).toBeCalledWith(mockData);
+      expect(repositoryMock.save).toBeCalledTimes(1);
+    });
+  });
+
   describe('when search user by id or email', () => {
     it('should find a user by id', async () => {
       repositoryMock.findOne.mockReturnValue(mockData);
 
-      const { id } = mockData;
+      const id = 'any_id';
       const user = await service.findUserByIdOrEmail(id);
 
       expect(user).toMatchObject(mockData);

@@ -4,7 +4,7 @@ import { compareSync } from 'bcrypt';
 import { User } from 'src/users/entities/user.entity';
 import { UsersService } from 'src/users/users.service';
 import { AuthInput } from './dtos/auth.input';
-import { AuthType } from './dtos/auth.type';
+import { AuthType } from './types/auth.type';
 
 @Injectable()
 export class AuthService {
