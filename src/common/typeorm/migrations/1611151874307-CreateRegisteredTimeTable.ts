@@ -12,14 +12,14 @@ export class CreateRegisteredTimeTable1611151874307
     columns: [
       {
         name: 'id',
-        type: 'int',
+        type: 'uuid',
         isPrimary: true,
         isGenerated: true,
-        generationStrategy: 'increment',
+        generationStrategy: 'uuid',
       },
       {
         name: 'user_id',
-        type: 'int',
+        type: 'uuid',
         isNullable: false,
       },
       {
@@ -54,7 +54,6 @@ export class CreateRegisteredTimeTable1611151874307
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropForeignKey(this.table, this.foreignKey);
     await queryRunner.dropTable(this.table);
   }
 }
