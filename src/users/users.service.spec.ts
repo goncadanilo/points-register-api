@@ -12,6 +12,7 @@ describe('UsersService', () => {
   };
 
   const mockData = {
+    id: '1',
     name: 'any',
     email: 'any@brainny.cc',
     password: 'any',
@@ -40,15 +41,26 @@ describe('UsersService', () => {
     expect(service).toBeDefined();
   });
 
-  describe('when search user by email', () => {
+  describe('when search user by id or email', () => {
+    it('should find a user by id', async () => {
+      repositoryMock.findOne.mockReturnValue(mockData);
+
+      const { id } = mockData;
+      const user = await service.findUserByIdOrEmail(id);
+
+      expect(user).toMatchObject(mockData);
+      expect(repositoryMock.findOne).toBeCalledTimes(1);
+    });
+
     it('should find a user by email', async () => {
+      repositoryMock.findOne.mockRejectedValueOnce(Error);
       repositoryMock.findOne.mockReturnValue(mockData);
 
       const { email } = mockData;
       const user = await service.findUserByIdOrEmail(email);
 
       expect(user).toMatchObject(mockData);
-      expect(repositoryMock.findOne).toBeCalledTimes(1);
+      expect(repositoryMock.findOne).toBeCalledTimes(2);
     });
 
     it('should throw if not found a user', async () => {
