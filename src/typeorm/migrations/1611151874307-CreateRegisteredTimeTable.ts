@@ -28,12 +28,6 @@ export class CreateRegisteredTimeTable1611151874307
         isNullable: false,
       },
       {
-        name: 'type',
-        type: 'enum',
-        enum: ['input', 'output'],
-        isNullable: false,
-      },
-      {
         name: 'created_at',
         type: 'timestamp',
         default: 'now()',

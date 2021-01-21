@@ -9,11 +9,6 @@ import {
 } from 'typeorm';
 import { User } from '../../../modules/users/entities/user.entity';
 
-enum Type {
-  INPUT = 'INPUT',
-  OUTPUT = 'OUTPUT',
-}
-
 @ObjectType()
 @Entity({ name: 'registered_time' })
 export class Register {
@@ -26,12 +21,6 @@ export class Register {
 
   @Column()
   timeRegistered: Date;
-
-  @Column({
-    type: 'enum',
-    enum: Type,
-  })
-  type: Type;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
