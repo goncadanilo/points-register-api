@@ -45,10 +45,9 @@ describe('UsersService', () => {
       repositoryMock.findOne.mockReturnValue(mockData);
 
       const { email } = mockData;
-      const user = await service.findUserByEmail(email);
+      const user = await service.findUserByIdOrEmail(email);
 
       expect(user).toMatchObject(mockData);
-      expect(repositoryMock.findOne).toBeCalledWith({ email });
       expect(repositoryMock.findOne).toBeCalledTimes(1);
     });
 
@@ -57,8 +56,9 @@ describe('UsersService', () => {
 
       const { email } = mockData;
 
-      expect(service.findUserByEmail(email)).rejects.toThrow(NotFoundException);
-      expect(repositoryMock.findOne).toBeCalledWith({ email });
+      expect(service.findUserByIdOrEmail(email)).rejects.toThrow(
+        NotFoundException,
+      );
       expect(repositoryMock.findOne).toBeCalledTimes(1);
     });
   });

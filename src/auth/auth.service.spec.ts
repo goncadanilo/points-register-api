@@ -9,7 +9,7 @@ describe('AuthService', () => {
   let service: AuthService;
 
   const usersServiceMock = {
-    findUserByEmail: jest.fn(),
+    findUserByIdOrEmail: jest.fn(),
   };
 
   const jwtServiceMock = {
@@ -34,7 +34,7 @@ describe('AuthService', () => {
   });
 
   beforeEach(() => {
-    usersServiceMock.findUserByEmail.mockReset();
+    usersServiceMock.findUserByIdOrEmail.mockReset();
   });
 
   it('should be defined', () => {
@@ -44,7 +44,7 @@ describe('AuthService', () => {
   describe('when validate user', () => {
     it('should validate user', async () => {
       const password = hashSync(mockData.password, 10);
-      usersServiceMock.findUserByEmail.mockReturnValue({
+      usersServiceMock.findUserByIdOrEmail.mockReturnValue({
         ...mockData,
         password,
       });
@@ -53,18 +53,16 @@ describe('AuthService', () => {
       const result = await service.validateUser(mockData);
 
       expect(result).toHaveProperty('token');
-      expect(usersServiceMock.findUserByEmail).toBeCalledWith(mockData.email);
-      expect(usersServiceMock.findUserByEmail).toBeCalledTimes(1);
+      expect(usersServiceMock.findUserByIdOrEmail).toBeCalledTimes(1);
     });
 
     it('should throw if user password is invalid', async () => {
-      usersServiceMock.findUserByEmail.mockReturnValue(mockData);
+      usersServiceMock.findUserByIdOrEmail.mockReturnValue(mockData);
 
       expect(service.validateUser(mockData)).rejects.toThrow(
         UnauthorizedException,
       );
-      expect(usersServiceMock.findUserByEmail).toBeCalledWith(mockData.email);
-      expect(usersServiceMock.findUserByEmail).toBeCalledTimes(1);
+      expect(usersServiceMock.findUserByIdOrEmail).toBeCalledTimes(1);
     });
   });
 });
