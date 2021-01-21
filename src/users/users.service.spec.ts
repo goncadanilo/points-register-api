@@ -47,12 +47,12 @@ describe('UsersService', () => {
   describe('when create a user', () => {
     it('should be create a user', async () => {
       repositoryMock.create.mockReturnValue(mockData);
-      repositoryMock.save.mockReturnValue(mockData);
+      repositoryMock.save.mockReturnValue({ ...mockData, id: 'any_id' });
 
-      const savedUser = await service.createUser(mockData);
+      const user = await service.createUser(mockData);
 
-      expect(savedUser).toHaveProperty('id');
-      expect(savedUser).toMatchObject(mockData);
+      expect(user).toHaveProperty('id');
+      expect(user).toMatchObject(mockData);
       expect(repositoryMock.create).toBeCalledWith(mockData);
       expect(repositoryMock.create).toBeCalledTimes(1);
       expect(repositoryMock.save).toBeCalledWith(mockData);

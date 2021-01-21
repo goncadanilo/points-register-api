@@ -1,18 +1,50 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UsersResolver } from './users.resolver';
+import { UsersService } from './users.service';
 
 describe('UsersResolver', () => {
   let resolver: UsersResolver;
 
-  beforeEach(async () => {
+  const serviceMock = {
+    createUser: jest.fn(),
+  };
+
+  const mockData = {
+    name: 'any',
+    email: 'any@brainny.cc',
+    password: 'any',
+    role: 'employee',
+  };
+
+  beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [UsersResolver],
+      providers: [
+        UsersResolver,
+        { provide: UsersService, useFactory: () => serviceMock },
+      ],
     }).compile();
 
     resolver = module.get<UsersResolver>(UsersResolver);
   });
 
+  beforeEach(() => {
+    serviceMock.createUser.mockReset();
+  });
+
   it('should be defined', () => {
     expect(resolver).toBeDefined();
+  });
+
+  describe('when create a user', () => {
+    it('should return the created user', async () => {
+      serviceMock.createUser.mockReturnValue({ ...mockData, id: 'any_id' });
+
+      const user = await resolver.createUser(mockData);
+
+      expect(user).toHaveProperty('id');
+      expect(user).toMatchObject(mockData);
+      expect(serviceMock.createUser).toBeCalledWith(mockData);
+      expect(serviceMock.createUser).toBeCalledTimes(1);
+    });
   });
 });
