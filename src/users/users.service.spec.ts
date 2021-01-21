@@ -17,7 +17,7 @@ describe('UsersService', () => {
     name: 'any',
     email: 'any@brainny.cc',
     password: 'any',
-    role: 'employee',
+    role: 'EMPLOYEE',
   };
 
   beforeAll(async () => {
@@ -45,15 +45,34 @@ describe('UsersService', () => {
   });
 
   describe('when create a user', () => {
-    it('should be create a user', async () => {
+    it('should be create a employee', async () => {
       repositoryMock.create.mockReturnValue(mockData);
       repositoryMock.save.mockReturnValue({ ...mockData, id: 'any_id' });
 
-      const user = await service.createUser(mockData);
+      const { name, email, password } = mockData;
+      const mockInput = { name, email, password, admin: false };
+      const user = await service.createUser(mockInput);
 
       expect(user).toHaveProperty('id');
       expect(user).toMatchObject(mockData);
-      expect(repositoryMock.create).toBeCalledWith(mockData);
+      expect(repositoryMock.create).toBeCalledWith(mockInput);
+      expect(repositoryMock.create).toBeCalledTimes(1);
+      expect(repositoryMock.save).toBeCalledWith(mockData);
+      expect(repositoryMock.save).toBeCalledTimes(1);
+    });
+
+    it('should be create a administrator', async () => {
+      mockData.role = 'ADMINISTRATOR';
+      repositoryMock.create.mockReturnValue(mockData);
+      repositoryMock.save.mockReturnValue({ ...mockData, id: 'any_id' });
+
+      const { name, email, password } = mockData;
+      const mockInput = { name, email, password, admin: true };
+      const user = await service.createUser(mockInput);
+
+      expect(user).toHaveProperty('id');
+      expect(user).toMatchObject(mockData);
+      expect(repositoryMock.create).toBeCalledWith(mockInput);
       expect(repositoryMock.create).toBeCalledTimes(1);
       expect(repositoryMock.save).toBeCalledWith(mockData);
       expect(repositoryMock.save).toBeCalledTimes(1);

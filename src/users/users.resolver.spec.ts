@@ -13,7 +13,7 @@ describe('UsersResolver', () => {
     name: 'any',
     email: 'any@brainny.cc',
     password: 'any',
-    role: 'employee',
+    role: 'EMPLOYEE',
   };
 
   beforeAll(async () => {
@@ -39,11 +39,13 @@ describe('UsersResolver', () => {
     it('should return the created user', async () => {
       serviceMock.createUser.mockReturnValue({ ...mockData, id: 'any_id' });
 
-      const user = await resolver.createUser(mockData);
+      const { name, email, password } = mockData;
+      const mockInput = { name, email, password, admin: false };
+      const user = await resolver.createUser(mockInput);
 
       expect(user).toHaveProperty('id');
       expect(user).toMatchObject(mockData);
-      expect(serviceMock.createUser).toBeCalledWith(mockData);
+      expect(serviceMock.createUser).toBeCalledWith(mockInput);
       expect(serviceMock.createUser).toBeCalledTimes(1);
     });
   });
