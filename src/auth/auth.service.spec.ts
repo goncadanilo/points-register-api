@@ -6,9 +6,8 @@ import { AuthService } from './auth.service';
 
 describe('AuthService', () => {
   let service: AuthService;
-  let usersService;
 
-  const usersServiceFactory = {
+  const usersServiceMock = {
     findUserByEmail: jest.fn(),
   };
 
@@ -21,16 +20,15 @@ describe('AuthService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         AuthService,
-        { provide: UsersService, useFactory: () => usersServiceFactory },
+        { provide: UsersService, useValue: usersServiceMock },
       ],
     }).compile();
 
     service = module.get<AuthService>(AuthService);
-    usersService = module.get<UsersService>(UsersService);
   });
 
   beforeEach(() => {
-    usersService.findUserByEmail.mockReset();
+    usersServiceMock.findUserByEmail.mockReset();
   });
 
   it('should be defined', () => {
@@ -40,23 +38,26 @@ describe('AuthService', () => {
   describe('when validate user', () => {
     it('should validate user', async () => {
       const password = hashSync(mockData.password, 10);
-      usersService.findUserByEmail.mockReturnValue({ ...mockData, password });
+      usersServiceMock.findUserByEmail.mockReturnValue({
+        ...mockData,
+        password,
+      });
 
       const result = await service.validateUser(mockData);
 
       expect(result).toHaveProperty('token');
-      expect(usersService.findUserByEmail).toBeCalledWith(mockData.email);
-      expect(usersService.findUserByEmail).toBeCalledTimes(1);
+      expect(usersServiceMock.findUserByEmail).toBeCalledWith(mockData.email);
+      expect(usersServiceMock.findUserByEmail).toBeCalledTimes(1);
     });
 
     it('should throw if user password is invalid', async () => {
-      usersService.findUserByEmail.mockReturnValue(mockData);
+      usersServiceMock.findUserByEmail.mockReturnValue(mockData);
 
       expect(service.validateUser(mockData)).rejects.toThrow(
         UnauthorizedException,
       );
-      expect(usersService.findUserByEmail).toBeCalledWith(mockData.email);
-      expect(usersService.findUserByEmail).toBeCalledTimes(1);
+      expect(usersServiceMock.findUserByEmail).toBeCalledWith(mockData.email);
+      expect(usersServiceMock.findUserByEmail).toBeCalledTimes(1);
     });
   });
 });

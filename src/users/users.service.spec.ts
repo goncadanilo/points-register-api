@@ -6,9 +6,8 @@ import { UsersService } from './users.service';
 
 describe('UsersService', () => {
   let service: UsersService;
-  let repository;
 
-  const repositoryFactory = {
+  const repositoryMock = {
     findOne: jest.fn(),
   };
 
@@ -25,17 +24,16 @@ describe('UsersService', () => {
         UsersService,
         {
           provide: getRepositoryToken(User),
-          useFactory: () => repositoryFactory,
+          useFactory: () => repositoryMock,
         },
       ],
     }).compile();
 
     service = module.get<UsersService>(UsersService);
-    repository = module.get(getRepositoryToken(User));
   });
 
   beforeEach(() => {
-    repository.findOne.mockReset();
+    repositoryMock.findOne.mockReset();
   });
 
   it('should be defined', () => {
@@ -44,24 +42,24 @@ describe('UsersService', () => {
 
   describe('when search user by email', () => {
     it('should find a user by email', async () => {
-      repository.findOne.mockReturnValue(mockData);
+      repositoryMock.findOne.mockReturnValue(mockData);
 
       const { email } = mockData;
       const user = await service.findUserByEmail(email);
 
       expect(user).toMatchObject(mockData);
-      expect(repository.findOne).toBeCalledWith({ email });
-      expect(repository.findOne).toBeCalledTimes(1);
+      expect(repositoryMock.findOne).toBeCalledWith({ email });
+      expect(repositoryMock.findOne).toBeCalledTimes(1);
     });
 
     it('should throw if not found a user', async () => {
-      repository.findOne.mockReturnValue(null);
+      repositoryMock.findOne.mockReturnValue(null);
 
       const { email } = mockData;
 
       expect(service.findUserByEmail(email)).rejects.toThrow(NotFoundException);
-      expect(repository.findOne).toBeCalledWith({ email });
-      expect(repository.findOne).toBeCalledTimes(1);
+      expect(repositoryMock.findOne).toBeCalledWith({ email });
+      expect(repositoryMock.findOne).toBeCalledTimes(1);
     });
   });
 });
