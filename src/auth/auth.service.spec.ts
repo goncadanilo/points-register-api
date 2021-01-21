@@ -13,7 +13,7 @@ describe('AuthService', () => {
 
   const mockData = {
     email: 'any@brainny.cc',
-    password: 'any',
+    password: 'admin123',
   };
 
   beforeAll(async () => {

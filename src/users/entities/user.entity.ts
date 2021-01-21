@@ -1,4 +1,4 @@
-import { Field, HideField, ID } from '@nestjs/graphql';
+import { Field, HideField, ID, ObjectType } from '@nestjs/graphql';
 import {
   Column,
   CreateDateColumn,
@@ -7,6 +7,7 @@ import {
 } from 'typeorm';
 import { hashPasswordTransform } from '../../common/transformers/crypto-transformer';
 
+@ObjectType()
 @Entity({ name: 'users' })
 export class User {
   @PrimaryGeneratedColumn('uuid')

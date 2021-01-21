@@ -29,7 +29,7 @@ export class CreateUsersTable1611147135013 implements MigrationInterface {
       },
       {
         name: 'password',
-        type: 'varchar(100)',
+        type: 'varchar',
         isNullable: false,
       },
       {
@@ -59,8 +59,8 @@ export class CreateUsersTable1611147135013 implements MigrationInterface {
       INSERT INTO "users" (name, email, password, role)
       VALUES (
         'Administrador',
-        'adm@brainny.cc',
-        '$2b$10$iFTN41FnmxY6ONYlmU4W8eb60UqAIfJVQ7AlwM5ZfACR3rK/IVM.y',
+        'admin@brainny.cc',
+        '$2b$10$uaG7gZMCMZxhI.AnNq9gAui5scFh/cI9sVg4wTMN80M8TW935tLIm',
         'administrator'
       )
     `);

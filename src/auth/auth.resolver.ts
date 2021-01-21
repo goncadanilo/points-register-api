@@ -3,12 +3,12 @@ import { AuthService } from './auth.service';
 import { AuthInput } from './dtos/auth.input';
 import { AuthType } from './dtos/auth.type';
 
-@Resolver()
+@Resolver('Auth')
 export class AuthResolver {
   constructor(private authService: AuthService) {}
 
   @Mutation(() => AuthType)
-  public async login(@Args('data') data: AuthInput): Promise<AuthType> {
+  async login(@Args('data') data: AuthInput): Promise<AuthType> {
     const response = await this.authService.validateUser(data);
 
     return {
