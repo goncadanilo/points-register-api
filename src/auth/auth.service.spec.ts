@@ -1,4 +1,5 @@
 import { UnauthorizedException } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
 import { hashSync } from 'bcrypt';
 import { UsersService } from 'src/users/users.service';
@@ -11,6 +12,10 @@ describe('AuthService', () => {
     findUserByEmail: jest.fn(),
   };
 
+  const jwtServiceMock = {
+    signAsync: jest.fn(),
+  };
+
   const mockData = {
     email: 'any@brainny.cc',
     password: 'admin123',
@@ -21,6 +26,7 @@ describe('AuthService', () => {
       providers: [
         AuthService,
         { provide: UsersService, useValue: usersServiceMock },
+        { provide: JwtService, useValue: jwtServiceMock },
       ],
     }).compile();
 
@@ -42,6 +48,7 @@ describe('AuthService', () => {
         ...mockData,
         password,
       });
+      jwtServiceMock.signAsync.mockReturnValue('valid_token');
 
       const result = await service.validateUser(mockData);
 
