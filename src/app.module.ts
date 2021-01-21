@@ -11,6 +11,7 @@ import { UsersModule } from './users/users.module';
     ConfigModule.forRoot(),
     GraphQLModule.forRoot({
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      context: ({ req }) => ({ req }),
       playground: true,
     }),
     TypeOrmModule.forRoot({
