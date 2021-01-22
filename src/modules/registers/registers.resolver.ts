@@ -1,11 +1,17 @@
 import { UseGuards } from '@nestjs/common';
-import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
+import { PubSub } from 'graphql-subscriptions';
+import { Roles } from 'src/common/decorators/roles.decorator';
+import { Role } from 'src/common/enum/role.enum';
+import { RolesGuard } from 'src/common/guards/roles.guard';
 import { CurrentUser } from '../../common/decorators/user.decorator';
 import { GqlAuthGuard } from '../auth/guards/auth.guard';
 import { User } from '../users/entities/user.entity';
 import { CreateRegisterInput } from './dtos/create-register.input';
 import { Register } from './entities/register.entity';
 import { RegistersService } from './registers.service';
+
+const pubSub = new PubSub();
 
 @Resolver('Register')
 export class RegistersResolver {
@@ -17,12 +23,28 @@ export class RegistersResolver {
     @Args('data') data: CreateRegisterInput,
     @CurrentUser() user: User,
   ): Promise<Register> {
-    return await this.registersService.createRegister(data, user.id);
+    const register = await this.registersService.createRegister(data, user.id);
+
+    pubSub.publish('registerAdded', { registerAdded: register });
+
+    return register;
   }
 
   @Query(() => [Register])
   @UseGuards(GqlAuthGuard)
   async findRegistersByUserId(@CurrentUser() user: User): Promise<Register[]> {
     return await this.registersService.findRegistersByUserId(user.id);
+  }
+
+  @Query(() => [Register])
+  @UseGuards(GqlAuthGuard, RolesGuard)
+  @Roles(Role.ADMINISTRATOR)
+  async findAllRegisters(): Promise<Register[]> {
+    return await this.registersService.findAllRegisters();
+  }
+
+  @Subscription(() => Register)
+  registerAdded() {
+    return pubSub.asyncIterator('registerAdded');
   }
 }

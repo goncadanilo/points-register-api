@@ -13,6 +13,7 @@ describe('RegistersService', () => {
   };
 
   const mockData = {
+    userId: 'any_id',
     timeRegistered: new Date(),
   };
 
@@ -48,7 +49,7 @@ describe('RegistersService', () => {
       expect(register).toMatchObject(mockData);
       expect(repositoryMock.create).toBeCalledWith({
         ...mockData,
-        id: 'any_id',
+        userId: 'any_id',
       });
       expect(repositoryMock.create).toBeCalledTimes(1);
       expect(repositoryMock.save).toBeCalledWith(mockData);
@@ -64,8 +65,18 @@ describe('RegistersService', () => {
       const registers = await service.findRegistersByUserId(userId);
 
       expect(registers).toHaveLength(2);
-      expect(registers);
       expect(repositoryMock.find).toBeCalledWith({ userId });
+      expect(repositoryMock.find).toBeCalledTimes(1);
+    });
+  });
+
+  describe('when search all registers', () => {
+    it('should find all registers', async () => {
+      repositoryMock.find.mockReturnValue([mockData, mockData, mockData]);
+
+      const registers = await service.findAllRegisters();
+
+      expect(registers).toHaveLength(3);
       expect(repositoryMock.find).toBeCalledTimes(1);
     });
   });
