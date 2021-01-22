@@ -65,8 +65,18 @@ describe('RegistersService', () => {
       const registers = await service.findRegistersByUserId(userId);
 
       expect(registers).toHaveLength(2);
-      expect(registers);
       expect(repositoryMock.find).toBeCalledWith({ userId });
+      expect(repositoryMock.find).toBeCalledTimes(1);
+    });
+  });
+
+  describe('when search all registers', () => {
+    it('should find all registers', async () => {
+      repositoryMock.find.mockReturnValue([mockData, mockData, mockData]);
+
+      const registers = await service.findAllRegisters();
+
+      expect(registers).toHaveLength(3);
       expect(repositoryMock.find).toBeCalledTimes(1);
     });
   });

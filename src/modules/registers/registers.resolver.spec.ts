@@ -9,6 +9,7 @@ describe('RegistersResolver', () => {
   const serviceMock = {
     createRegister: jest.fn(),
     findRegistersByUserId: jest.fn(),
+    findAllRegisters: jest.fn(),
   };
 
   const mockData = {
@@ -30,6 +31,7 @@ describe('RegistersResolver', () => {
   beforeEach(() => {
     serviceMock.createRegister.mockReset();
     serviceMock.findRegistersByUserId.mockReset();
+    serviceMock.findAllRegisters.mockReset();
   });
 
   it('should be defined', () => {
@@ -64,6 +66,21 @@ describe('RegistersResolver', () => {
       expect(registers);
       expect(serviceMock.findRegistersByUserId).toBeCalledWith(user.id);
       expect(serviceMock.findRegistersByUserId).toBeCalledTimes(1);
+    });
+  });
+
+  describe('when search all registers', () => {
+    it('should find all registers', async () => {
+      serviceMock.findAllRegisters.mockReturnValue([
+        mockData,
+        mockData,
+        mockData,
+      ]);
+
+      const registers = await resolver.findAllRegisters();
+
+      expect(registers).toHaveLength(3);
+      expect(serviceMock.findAllRegisters).toBeCalledTimes(1);
     });
   });
 });
