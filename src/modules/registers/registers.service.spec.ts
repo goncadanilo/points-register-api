@@ -9,6 +9,7 @@ describe('RegistersService', () => {
   const repositoryMock = {
     create: jest.fn(),
     save: jest.fn(),
+    find: jest.fn(),
   };
 
   const mockData = {
@@ -29,6 +30,7 @@ describe('RegistersService', () => {
   beforeEach(() => {
     repositoryMock.create.mockReset();
     repositoryMock.save.mockReset();
+    repositoryMock.find.mockReset();
   });
 
   it('should be defined', () => {
@@ -51,6 +53,20 @@ describe('RegistersService', () => {
       expect(repositoryMock.create).toBeCalledTimes(1);
       expect(repositoryMock.save).toBeCalledWith(mockData);
       expect(repositoryMock.save).toBeCalledTimes(1);
+    });
+  });
+
+  describe('when search register by user id', () => {
+    it('should find all the registers of a user by their id', async () => {
+      repositoryMock.find.mockReturnValue([mockData, mockData]);
+
+      const userId = 'any_id';
+      const registers = await service.findRegistersByUserId(userId);
+
+      expect(registers).toHaveLength(2);
+      expect(registers);
+      expect(repositoryMock.find).toBeCalledWith({ userId });
+      expect(repositoryMock.find).toBeCalledTimes(1);
     });
   });
 });
