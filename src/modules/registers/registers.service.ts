@@ -22,4 +22,9 @@ export class RegistersService {
     const registers = await this.repository.find({ userId });
     return registers;
   }
+
+  async findAllRegisters(): Promise<Register[]> {
+    const registers = await this.repository.find();
+    return registers;
+  }
 }
