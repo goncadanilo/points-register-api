@@ -2,72 +2,98 @@
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
 </p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
+<p align="center">
+  API para o gerenciamento de Registros de Ponto dos colaboradores de uma empresa.
 </p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+<p align="center">
+  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/goncadanilo/brainny-register-api.svg">
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+  <a href="https://github.com/goncadanilo/brainny-register-api/commits/master">
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/goncadanilo/brainny-register-api.svg">
+  </a>
 
-## Installation
+  <a href="https://github.com/goncadanilo/brainny-register-api/issues">
+    <img alt="Repository issues" src="https://img.shields.io/github/issues/goncadanilo/brainny-register-api.svg">
+  </a>
 
-```bash
-$ npm install
-```
+  <img alt="License" src="https://img.shields.io/badge/license-MIT-brightgreen">
 
-## Running the app
+  <a href="https://github.com/goncadanilo/">
+    <img alt="Author" src="https://img.shields.io/badge/author-Danilo%20Gon%C3%A7alves-blue">
+  </a>
+</p>
 
-```bash
-# development
-$ npm run start
+<p align="center">
+  <a href="#-projeto">Sobre o Projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-tecnologias">Tecnologias Utilizadas</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-como-rodar">Como rodar</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-licença">Licença</a>
+</p>
 
-# watch mode
-$ npm run start:dev
+---
 
-# production mode
-$ npm run start:prod
-```
+## 💻 Sobre o Projeto
 
-## Test
+Esse projeto é uma API para o gerenciamento de Registros de Ponto dos colaboradores de uma empresa, no qual cada colaborador efetuará autenticação e realizará o registro do seu ponto diariamente.
 
-```bash
-# unit tests
-$ npm run test
+### Requisitos Funcionais
+- [**RF01**] - Gerenciar registros de horários;
+- [**RF02**] - Registrar horário de entrada e saída do colaborador;
+- [**RF03**] - O usuário com permissão de administrador poderá visualizar em tempo real os registros dos colaboradores, sem a necessidade refresh de página.
 
-# e2e tests
-$ npm run test:e2e
+### Requisitos Não Funcionais
+- [**RNF01**] - Apenas os colaboradores podem bater o ponto;
+- [**RNF02**] - Apenas o administrador do sistema poderá visualizar a lista com os registros dos colaboradores;
+- [**RNF03**] - Apenas o administrador do sistema poderá cadastrar novos colaboradores;
+- [**RNF04**] - Desenvolvimento de API em NestJS e GraphQL com Apollo;
+- [**RNF05**] - O sistema utilizará autenticação com JWT;
 
-# test coverage
-$ npm run test:cov
-```
+## 🚀 Tecnologias Utilizadas
 
-## Support
+Esse projeto foi desenvolvido com as seguintes tecnologias:
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+- [NestJS](https://nestjs.com/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [GraphQl](https://graphql.org/)
+- [Apollo](https://www.apollographql.com/)
+- [TypeOrm](https://typeorm.io)
 
-## Stay in touch
+## ⚡ Como rodar
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+Neste projeto estou utilizando o [yarn](https://yarnpkg.com/), mas se preferir pode usar o **npm**
 
-## License
+### Requisitos
 
-Nest is [MIT licensed](LICENSE).
+- [NestJS CLI](https://docs.nestjs.com/first-steps).
+- [Docker](https://www.docker.com/)
+- [Docker-compose](https://docs.docker.com/compose/install/).
+
+### Intalar as dependências
+
+- instale as dependências: `yarn`.
+
+### Subir o banco
+
+- crie uma cópia do `.env.example` como `.env` e defina suas variáveis do banco.
+- suba o banco de dados com docker: `docker-compose up -d`.
+- rode as migrations: `yarn typeorm migration:run`.
+
+### Rodar a aplicação
+
+- para rodar a aplicação: `yarn start`.
+- para rodar a aplicação em modo watch: `yarn start:dev`.
+- a aplicação estará disponível no endereço: `http://localhost:3333/graphql`.
+
+### Rodar os testes
+
+- para rodar os testes unitários: `yarn test`.
+- para ver a cobertura dos testes unitários: `yarn test:cov`.
+
+## 📝 Licença
+
+Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE.md) para mais detalhes.
+
+---
+
+Feito com ♥ by [Danilo Gonçalves](https://github.com/goncadanilo). Me adicione no [LinkedIn](https://www.linkedin.com/in/goncadanilo/) :wave:
