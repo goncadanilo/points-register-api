@@ -15,6 +15,11 @@ export class RegistersService {
     id: string,
   ): Promise<Register> {
     const register = this.repository.create({ ...data, id });
-    return this.repository.save(register);
+    return await this.repository.save(register);
+  }
+
+  async findRegistersByUserId(userId: string): Promise<Register[]> {
+    const registers = await this.repository.find({ userId });
+    return registers;
   }
 }
