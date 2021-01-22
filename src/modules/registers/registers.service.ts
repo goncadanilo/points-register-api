@@ -12,9 +12,9 @@ export class RegistersService {
 
   async createRegister(
     data: CreateRegisterInput,
-    id: string,
+    userId: string,
   ): Promise<Register> {
-    const register = this.repository.create({ ...data, id });
+    const register = this.repository.create({ ...data, userId });
     return await this.repository.save(register);
   }
 

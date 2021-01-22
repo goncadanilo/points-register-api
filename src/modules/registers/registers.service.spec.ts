@@ -13,6 +13,7 @@ describe('RegistersService', () => {
   };
 
   const mockData = {
+    userId: 'any_id',
     timeRegistered: new Date(),
   };
 
@@ -48,7 +49,7 @@ describe('RegistersService', () => {
       expect(register).toMatchObject(mockData);
       expect(repositoryMock.create).toBeCalledWith({
         ...mockData,
-        id: 'any_id',
+        userId: 'any_id',
       });
       expect(repositoryMock.create).toBeCalledTimes(1);
       expect(repositoryMock.save).toBeCalledWith(mockData);
