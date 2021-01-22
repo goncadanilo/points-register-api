@@ -1,8 +1,8 @@
 import { UseGuards } from '@nestjs/common';
 import { Args, Mutation, Resolver } from '@nestjs/graphql';
 import { Roles } from 'src/common/decorators/roles.decorator';
+import { Role } from 'src/common/enum/role.enum';
 import { RolesGuard } from 'src/common/guards/roles.guard';
-import { Role } from '../../common/enum/role.enum';
 import { GqlAuthGuard } from '../auth/guards/auth.guard';
 import { CreateUserInput } from './dtos/create-user.input';
 import { User } from './entities/user.entity';

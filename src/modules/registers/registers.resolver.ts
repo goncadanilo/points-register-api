@@ -1,10 +1,10 @@
 import { UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
-import { PubSub } from 'graphql-subscriptions';
+import { PubSub } from 'apollo-server-express';
 import { Roles } from 'src/common/decorators/roles.decorator';
+import { CurrentUser } from 'src/common/decorators/user.decorator';
 import { Role } from 'src/common/enum/role.enum';
 import { RolesGuard } from 'src/common/guards/roles.guard';
-import { CurrentUser } from '../../common/decorators/user.decorator';
 import { GqlAuthGuard } from '../auth/guards/auth.guard';
 import { User } from '../users/entities/user.entity';
 import { CreateRegisterInput } from './dtos/create-register.input';
