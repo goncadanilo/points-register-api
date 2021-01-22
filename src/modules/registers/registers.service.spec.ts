@@ -12,7 +12,6 @@ describe('RegistersService', () => {
   };
 
   const mockData = {
-    userId: 'any_id',
     timeRegistered: new Date(),
   };
 
@@ -41,11 +40,14 @@ describe('RegistersService', () => {
       repositoryMock.create.mockReturnValue(mockData);
       repositoryMock.save.mockReturnValue({ ...mockData, id: 'any_id' });
 
-      const register = await service.createRegister(mockData);
+      const register = await service.createRegister(mockData, 'any_id');
 
       expect(register).toHaveProperty('id');
       expect(register).toMatchObject(mockData);
-      expect(repositoryMock.create).toBeCalledWith(mockData);
+      expect(repositoryMock.create).toBeCalledWith({
+        ...mockData,
+        id: 'any_id',
+      });
       expect(repositoryMock.create).toBeCalledTimes(1);
       expect(repositoryMock.save).toBeCalledWith(mockData);
       expect(repositoryMock.save).toBeCalledTimes(1);

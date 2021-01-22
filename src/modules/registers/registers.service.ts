@@ -10,8 +10,11 @@ export class RegistersService {
     @InjectRepository(Register) private repository: Repository<Register>,
   ) {}
 
-  async createRegister(data: CreateRegisterInput): Promise<Register> {
-    const register = this.repository.create(data);
+  async createRegister(
+    data: CreateRegisterInput,
+    id: string,
+  ): Promise<Register> {
+    const register = this.repository.create({ ...data, id });
     return this.repository.save(register);
   }
 }

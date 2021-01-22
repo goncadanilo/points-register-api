@@ -16,10 +16,10 @@ export class Register {
   @Field(() => ID)
   id: string;
 
-  @Column()
+  @Column({ name: 'user_id' })
   userId: string;
 
-  @Column()
+  @Column({ name: 'time_registered' })
   timeRegistered: Date;
 
   @CreateDateColumn({ name: 'created_at' })

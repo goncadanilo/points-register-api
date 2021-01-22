@@ -86,7 +86,8 @@
       "src/modules/**/*.ts",
       "!src/modules/**/*.guard.ts",
       "!src/modules/**/*.strategy.ts",
-      "!src/modules/**/types/*.ts",
+      "!src/modules/**/*.type.ts",
+      "!src/modules/**/*.entity.ts",
       "!src/modules/**/*.module.ts"
     ],
     "coverageDirectory": "./coverage",
