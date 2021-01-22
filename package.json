@@ -83,15 +83,12 @@
       "^.+\\.(t|j)s$": "ts-jest"
     },
     "collectCoverageFrom": [
-      "src/**/*.ts",
-      "!src/**/**.guard.ts",
-      "!src/**/**.strategy.ts",
-      "!src/typeorm/**/*.ts",
-      "!src/common/**/**.ts",
-      "!src/main.ts",
-      "!src/app.module.ts",
-      "!src/**/types/**.ts",
-      "!src/**/*.module.ts"
+      "src/modules/**/*.ts",
+      "!src/modules/**/*.guard.ts",
+      "!src/modules/**/*.strategy.ts",
+      "!src/modules/**/*.type.ts",
+      "!src/modules/**/*.entity.ts",
+      "!src/modules/**/*.module.ts"
     ],
     "coverageDirectory": "./coverage",
     "testEnvironment": "node"
