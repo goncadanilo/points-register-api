@@ -7,6 +7,7 @@ describe('UsersResolver', () => {
 
   const serviceMock = {
     createUser: jest.fn(),
+    findAllUsers: jest.fn(),
   };
 
   const mockData = {
@@ -47,6 +48,17 @@ describe('UsersResolver', () => {
       expect(user).toMatchObject(mockData);
       expect(serviceMock.createUser).toBeCalledWith(mockInput);
       expect(serviceMock.createUser).toBeCalledTimes(1);
+    });
+  });
+
+  describe('when search all users', () => {
+    it('should find all users', async () => {
+      serviceMock.findAllUsers.mockReturnValue([mockData, mockData, mockData]);
+
+      const registers = await resolver.findAllUsers();
+
+      expect(registers).toHaveLength(3);
+      expect(serviceMock.findAllUsers).toBeCalledTimes(1);
     });
   });
 });

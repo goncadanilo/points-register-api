@@ -30,4 +30,9 @@ export class UsersService {
     }
     return user;
   }
+
+  async findAllUsers(): Promise<User[]> {
+    const users = await this.repository.find();
+    return users;
+  }
 }

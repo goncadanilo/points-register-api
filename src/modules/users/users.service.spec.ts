@@ -11,6 +11,7 @@ describe('UsersService', () => {
     create: jest.fn(),
     save: jest.fn(),
     findOne: jest.fn(),
+    find: jest.fn(),
   };
 
   const mockData = {
@@ -38,6 +39,7 @@ describe('UsersService', () => {
     repositoryMock.create.mockReset();
     repositoryMock.save.mockReset();
     repositoryMock.findOne.mockReset();
+    repositoryMock.find.mockReset();
   });
 
   it('should be defined', () => {
@@ -110,6 +112,17 @@ describe('UsersService', () => {
         NotFoundException,
       );
       expect(repositoryMock.findOne).toBeCalledTimes(1);
+    });
+  });
+
+  describe('when search all users', () => {
+    it('should find all users', async () => {
+      repositoryMock.find.mockReturnValue([mockData, mockData, mockData]);
+
+      const users = await service.findAllUsers();
+
+      expect(users).toHaveLength(3);
+      expect(repositoryMock.find).toBeCalledTimes(1);
     });
   });
 });
