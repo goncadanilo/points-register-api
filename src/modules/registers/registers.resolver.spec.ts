@@ -58,13 +58,12 @@ describe('RegistersResolver', () => {
     it('should find all the registers of a user by their id', async () => {
       serviceMock.findRegistersByUserId.mockReturnValue([mockData, mockData]);
 
-      const user = new User();
-      user.id = 'any_id';
-      const registers = await resolver.findRegistersByUserId(user);
+      const userId = 'any_id';
+      const registers = await resolver.findRegistersByUserId(userId);
 
       expect(registers).toHaveLength(2);
       expect(registers);
-      expect(serviceMock.findRegistersByUserId).toBeCalledWith(user.id);
+      expect(serviceMock.findRegistersByUserId).toBeCalledWith(userId);
       expect(serviceMock.findRegistersByUserId).toBeCalledTimes(1);
     });
   });

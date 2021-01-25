@@ -32,8 +32,8 @@ export class RegistersResolver {
 
   @Query(() => [Register])
   @UseGuards(GqlAuthGuard)
-  async findRegistersByUserId(@CurrentUser() user: User): Promise<Register[]> {
-    return await this.registersService.findRegistersByUserId(user.id);
+  async findRegistersByUserId(@Args('id') id: string): Promise<Register[]> {
+    return await this.registersService.findRegistersByUserId(id);
   }
 
   @Query(() => [Register])
