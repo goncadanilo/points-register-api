@@ -7,14 +7,14 @@
 </p>
 
 <p align="center">
-  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/goncadanilo/brainny-register-api.svg">
+  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/goncadanilo/points-register-api.svg">
 
-  <a href="https://github.com/goncadanilo/brainny-register-api/commits/master">
-    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/goncadanilo/brainny-register-api.svg">
+  <a href="https://github.com/goncadanilo/points-register-api/commits/master">
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/goncadanilo/points-register-api.svg">
   </a>
 
-  <a href="https://github.com/goncadanilo/brainny-register-api/issues">
-    <img alt="Repository issues" src="https://img.shields.io/github/issues/goncadanilo/brainny-register-api.svg">
+  <a href="https://github.com/goncadanilo/points-register-api/issues">
+    <img alt="Repository issues" src="https://img.shields.io/github/issues/goncadanilo/points-register-api.svg">
   </a>
 
   <img alt="License" src="https://img.shields.io/badge/license-MIT-brightgreen">
