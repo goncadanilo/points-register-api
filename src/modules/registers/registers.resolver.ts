@@ -18,7 +18,8 @@ export class RegistersResolver {
   constructor(private registersService: RegistersService) {}
 
   @Mutation(() => Register)
-  @UseGuards(GqlAuthGuard)
+  @UseGuards(GqlAuthGuard, RolesGuard)
+  @Roles(Role.EMPLOYEE)
   async createRegister(
     @Args('data') data: CreateRegisterInput,
     @CurrentUser() user: User,
