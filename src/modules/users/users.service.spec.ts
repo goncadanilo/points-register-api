@@ -1,4 +1,4 @@
-import { NotFoundException } from '@nestjs/common';
+import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
@@ -48,6 +48,7 @@ describe('UsersService', () => {
 
   describe('when create a user', () => {
     it('should be create a employee', async () => {
+      repositoryMock.findOne.mockReturnValue(null);
       repositoryMock.create.mockReturnValue(mockData);
       repositoryMock.save.mockReturnValue({ ...mockData, id: 'any_id' });
 
@@ -57,6 +58,8 @@ describe('UsersService', () => {
 
       expect(user).toHaveProperty('id');
       expect(user).toMatchObject(mockData);
+      expect(repositoryMock.findOne).toBeCalledWith({ email: mockInput.email });
+      expect(repositoryMock.findOne).toBeCalledTimes(1);
       expect(repositoryMock.create).toBeCalledWith(mockInput);
       expect(repositoryMock.create).toBeCalledTimes(1);
       expect(repositoryMock.save).toBeCalledWith(mockData);
@@ -64,6 +67,7 @@ describe('UsersService', () => {
     });
 
     it('should be create a administrator', async () => {
+      repositoryMock.findOne.mockReturnValue(null);
       mockData.role = 'ADMINISTRATOR';
       repositoryMock.create.mockReturnValue(mockData);
       repositoryMock.save.mockReturnValue({ ...mockData, id: 'any_id' });
@@ -74,10 +78,25 @@ describe('UsersService', () => {
 
       expect(user).toHaveProperty('id');
       expect(user).toMatchObject(mockData);
+      expect(repositoryMock.findOne).toBeCalledWith({ email: mockInput.email });
+      expect(repositoryMock.findOne).toBeCalledTimes(1);
       expect(repositoryMock.create).toBeCalledWith(mockInput);
       expect(repositoryMock.create).toBeCalledTimes(1);
       expect(repositoryMock.save).toBeCalledWith(mockData);
       expect(repositoryMock.save).toBeCalledTimes(1);
+    });
+
+    it('should not create a user with duplicate email', async () => {
+      repositoryMock.findOne.mockReturnValue(mockData);
+
+      const { name, email, password } = mockData;
+      const mockInput = { name, email, password, isAdmin: false };
+
+      expect(service.createUser(mockInput)).rejects.toThrow(
+        BadRequestException,
+      );
+      expect(repositoryMock.findOne).toBeCalledWith({ email: mockInput.email });
+      expect(repositoryMock.findOne).toBeCalledTimes(1);
     });
   });
 
